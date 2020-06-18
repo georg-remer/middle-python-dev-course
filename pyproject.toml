@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "middle-python-developer"
-version = "0.1.0"
+version = "1.0.0"
 description = ""
 authors = ["George Rymarenko <george.rymarenko@icloud.com>"]
 
