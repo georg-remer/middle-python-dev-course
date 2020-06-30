@@ -1,12 +1,14 @@
 [tool.poetry]
 name = "middle-python-developer"
-version = "1.1.0"
+version = "1.2.0"
 description = ""
 authors = ["George Rymarenko <george.rymarenko@icloud.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
 flask = "^1.1.2"
+elasticsearch = "^7.8.0"
+tqdm = "^4.47.0"
 
 [tool.poetry.dev-dependencies]
 wemake-python-styleguide = "^0.14.0"
