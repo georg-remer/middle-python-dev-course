@@ -1,5 +1,6 @@
 import json
 import logging
+import os
 import sqlite3
 from contextlib import contextmanager
 from typing import List
@@ -156,7 +157,7 @@ class ETL:
             'writers_names': [x['name'] for x in movie_writers],
             'imdb_rating': float(row['imdb_rating']) if row['imdb_rating'] != 'N/A' else None,
             'title': row['title'],
-            'director': row['director'].split(',') if row['director'] != 'N/A' else None,
+            'director': [x.strip() for x in row['director'].split(',')] if row['director'] != 'N/A' else None,
             'description': row['plot'] if row['plot'] != 'N/A' else None
         }
 
@@ -175,3 +176,12 @@ class ETL:
             records.append(transformed_row)
 
         self.es_loader.load_to_es(records, index_name)
+
+# Заливая на платформу, этот код переносить не нужно
+if __name__ == '__main__':
+    dirname = os.path.dirname(__file__)
+    db = os.path.join(dirname, 'etl', 'db.sqlite')
+    with conn_context(db) as conn:
+        es_loader = ESLoader(url='http://127.0.0.1:9200')
+        etl = ETL(conn=conn, es_loader=es_loader)
+        etl.load(index_name='movies2')
