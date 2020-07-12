@@ -24,7 +24,8 @@ ACTORS_QUERY = """SELECT
         a.name
     FROM movie_actors ma
         LEFT JOIN actors a ON ma.actor_id = a.id
-    WHERE ma.movie_id = ?"""
+    WHERE ma.movie_id = ?
+    ORDER BY a.id"""
 
 WRITERS_QUERY = """SELECT DISTINCT
         id, name

@@ -65,17 +65,15 @@ class ESLoader(object):
         Если значения нет или оно N/A, то нужно менять на None
         В списках значение N/A надо пропускать
         """
-        indices = [{
-            'index': {
-                '_index': 'movies',
-                '_id': 'my_id{index}'.format(index=index if index > 1 else '')
-            }} for index in range(1, len(records) + 1)
-        ]
-        records_with_indices = zip(indices, records)
-
         json_object_list = []
-        for element in records_with_indices:
-            json_object_list.extend(json.dumps(object) for object in list(element))
+        for record in records:
+            index = {
+                'index': {
+                    '_index': 'movies',
+                    '_id': '{record_id}'.format(record_id=record['id'])
+                }
+            }
+            json_object_list.extend([json.dumps(index), json.dumps(record)])
         nbjson = '\n'.join(json_object_list) + '\n'
 
         headers = {'Content-Type': 'application/x-ndjson'}
