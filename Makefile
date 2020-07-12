@@ -1,5 +1,8 @@
 install:
 	poetry install
 
-lint:
-	poetry run flake8 brain_games
+run:
+	poetry run flask run -p 8000
+
+code:
+	poetry run code .
